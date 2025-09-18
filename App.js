@@ -12,8 +12,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 
-// Backend API (Render deployment)
-const API_BASE_URL = "https://oratio-backend.onrender.com";
+// ✅ Use your deployed backend on Render
+const API_BASE_URL = "https://oratio-backend-4.onrender.com";
 
 export default function App() {
   const [email, setEmail] = useState("");
@@ -82,7 +82,10 @@ export default function App() {
       setLoggedIn(true);
       saveData();
     } else {
-      Alert.alert("Pristup odbijen", "Samo @oratio.ba i @office-rs.de emailovi su dozvoljeni.");
+      Alert.alert(
+        "Pristup odbijen",
+        "Samo @oratio.ba i @office-rs.de emailovi su dozvoljeni."
+      );
     }
   };
 
@@ -96,162 +99,4 @@ export default function App() {
     };
 
     try {
-      const res = await fetch(`${API_BASE_URL}/send-absence`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (res.ok) {
-        Alert.alert("Potvrđeno", "Vaša prijava odsustva je poslana.");
-        saveData();
-      } else {
-        Alert.alert("Greška", "Slanje e-maila nije uspjelo.");
-      }
-    } catch (err) {
-      Alert.alert("Greška", "Nije moguće povezati se s serverom.");
-    }
-  };
-
-  if (!loggedIn) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Oratio Prijava Odsustva</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Unesite svoj e-mail"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Prijava odsustva</Text>
-
-      <Text style={styles.label}>Datum:</Text>
-      <TouchableOpacity
-        style={styles.pickerButton}
-        onPress={() => setShowDatePicker(true)}
-      >
-        <Text>{date.toLocaleDateString("de-DE")}</Text>
-      </TouchableOpacity>
-      {showDatePicker && (
-        <DateTimePicker
-          value={date}
-          mode="date"
-          onChange={(e, selectedDate) => {
-            setShowDatePicker(false);
-            if (selectedDate) setDate(selectedDate);
-          }}
-        />
-      )}
-
-      <Text style={styles.label}>Vrijeme:</Text>
-      <TouchableOpacity
-        style={styles.pickerButton}
-        onPress={() => setShowTimePicker(true)}
-      >
-        <Text>{time.toLocaleTimeString("de-DE")}</Text>
-      </TouchableOpacity>
-      {showTimePicker && (
-        <DateTimePicker
-          value={time}
-          mode="time"
-          onChange={(e, selectedTime) => {
-            setShowTimePicker(false);
-            if (selectedTime) setTime(selectedTime);
-          }}
-        />
-      )}
-
-      <Text style={styles.label}>Projekt:</Text>
-      <View style={styles.dropdown}>
-        <Picker selectedValue={project} onValueChange={setProject}>
-          {projects.map((p) => (
-            <Picker.Item key={p} label={p} value={p} />
-          ))}
-        </Picker>
-      </View>
-
-      <Text style={styles.label}>Razlog:</Text>
-      <View style={styles.dropdown}>
-        <Picker selectedValue={reason} onValueChange={setReason}>
-          {reasons.map((r) => (
-            <Picker.Item key={r} label={r} value={r} />
-          ))}
-        </Picker>
-      </View>
-
-      <TouchableOpacity style={styles.button} onPress={handleConfirm}>
-        <Text style={styles.buttonText}>Potvrdi</Text>
-      </TouchableOpacity>
-    </ScrollView>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-    backgroundColor: "#ffffff",
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 20,
-    color: "#003366",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    width: "100%",
-    borderRadius: 5,
-    marginBottom: 15,
-  },
-  label: {
-    alignSelf: "flex-start",
-    marginTop: 10,
-    marginBottom: 5,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  pickerButton: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 12,
-    borderRadius: 5,
-    width: "100%",
-    marginBottom: 15,
-    backgroundColor: "#f9f9f9",
-  },
-  dropdown: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    marginBottom: 15,
-    width: "100%",
-  },
-  button: {
-    backgroundColor: "#003366",
-    padding: 15,
-    borderRadius: 5,
-    alignItems: "center",
-    width: "100%",
-    marginTop: 15,
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-});
+      const res = await fetch(`${API_BAS_
