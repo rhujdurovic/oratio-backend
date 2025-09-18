@@ -1,14 +1,23 @@
 {
-  "name": "oratio-backend",
-  "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
+  "name": "oratio-app",
+  "version": "2.0.0",
+  "private": true,
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "prebuild": "expo prebuild",
+    "clean-android": "cd android && gradlew clean",
+    "build-android-windows": "cd android && gradlew assembleRelease"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.19.2",
-    "nodemailer": "^6.9.11"
+    "expo": "^48.0.0",
+    "react": "18.2.0",
+    "react-native": "0.71.8",
+    "@react-native-async-storage/async-storage": "1.17.11",
+    "@react-native-community/datetimepicker": "6.7.3",
+    "@react-native-picker/picker": "2.4.8"
   }
 }
